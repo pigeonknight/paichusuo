@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.police.common.util.FastJsonUtil;
 import com.police.common.util.ResultBuilder;
 import com.police.pojo.dto.PageContentDTO;
+import com.police.pojo.dto.taskinfo.SonTaskDTO;
 import com.police.pojo.dto.taskinfo.TaskInfoDTO;
 import com.police.pojo.entity.taskinfo.TaskInfoPO;
-import com.police.service.maintask.MainTaskInfoService;
+import com.police.service.task.MainTaskInfoService;
+import com.police.service.task.SonTaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class MainTaskInfoController {
     private static final Logger logger = LoggerFactory.getLogger(MainTaskInfoController.class);
     @Autowired
     private MainTaskInfoService mainTaskInfoService;
+
+    @Autowired
+    private SonTaskService sonTaskService;
 
     @ResponseBody
     @RequestMapping(value = "/createmaintask", method = RequestMethod.POST)
@@ -37,10 +42,15 @@ public class MainTaskInfoController {
     @ResponseBody
     @RequestMapping(value = "/listmaintask",method = RequestMethod.POST)
     public String listMainTaskInfo(@RequestBody String payload) {
-        logger.info("获取购物车列表， 请求参数：{}", payload);
+        logger.info("获取主任务列表， 请求参数：{}", payload);
         TaskInfoDTO listTaskQueryParam = FastJsonUtil.toBean(payload, TaskInfoDTO.class);
         PageContentDTO taskList = mainTaskInfoService.listMainTaskInfo(listTaskQueryParam);
         return ResultBuilder.buildSuccess(taskList);
+    }
+
+    @RequestMapping(value = "/list.html", method = RequestMethod.GET)
+    public String listMainTaskPage() {
+        return "pages/task/maintask/list";
     }
 
 
@@ -72,27 +82,22 @@ public class MainTaskInfoController {
         }
     }
 
-//    @RequestMapping(value = "/lottery/edit/{promotionUid}.html", method = RequestMethod.GET)
-//    public String updateSelectionLottery(@PathVariable("promotionUid") String promotionUid, Model model) {
-//
-//
-//        model.addAttribute("lotteryPromotion", JSONObject.parseObject(FastJsonUtils.toJSONString(lotteryPromotion)));
-//        model.addAttribute("shopInfo", shopInfo);
-//        return "selections/lottery/edit";
-//    }
-    @ResponseBody
-    @RequestMapping(value = "/getmaintask", method = RequestMethod.GET)
-    public String getMainTask(@RequestBody String payload){
-        logger.info("修改购物车商品sku，请求参数：{}", payload);
-        TaskInfoPO taskInfoQueryParam = FastJsonUtil.toBean(payload, TaskInfoPO.class);
-        TaskInfoPO taskInfoPO = mainTaskInfoService.getMainTaskInfo(taskInfoQueryParam);
-        if(taskInfoPO!=null){
-            return ResultBuilder.buildSuccess(taskInfoPO);
-        }
-        else {
-            return ResultBuilder.buildError("获取该条主任务失败");
-        }
+    @RequestMapping(value = "createmaintask.html", method = RequestMethod.GET)
+    public String createBundle(Model model) {
+        return "pages/task/maintask/create";
     }
+
+
+
+
+    @RequestMapping(value = "/edit/{task_id}.html", method = RequestMethod.GET)
+    public String getMainTask(@PathVariable("task_id") String taskId, Model model){
+        logger.info("获取taskId={}的详情", taskId);
+        TaskInfoPO taskInfoPO = mainTaskInfoService.getMainTaskInfo(taskId);
+        model.addAttribute("mainTask",taskInfoPO);
+        return "pages/task/maintask/edit";
+    }
+
 
 
 }

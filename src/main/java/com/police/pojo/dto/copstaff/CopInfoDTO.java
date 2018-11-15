@@ -25,7 +25,7 @@ public class CopInfoDTO extends BasePageableDTO {
     @JSONField(name = "flag")
     int flag;
 
-    @JSONField(name = "manageArea")
+    @JSONField(name = "manage_area")
     String manageArea;
 
     @JSONField(name = "finish_status")

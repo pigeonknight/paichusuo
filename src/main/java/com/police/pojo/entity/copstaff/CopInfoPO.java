@@ -8,16 +8,16 @@ import java.util.Date;
 
 public class CopInfoPO extends BasePO {
 
-    @JSONField(name = "copId")
+    @JSONField(name = "cop_id")
     long copId;
 
     @JSONField(name = "password")
     String password;
 
-    @JSONField(name = "copName")
+    @JSONField(name = "cop_name")
     String copName;
 
-    @JSONField(name = "copSex")
+    @JSONField(name = "cop_sex")
     String copSex;
 
     @JSONField(name = "birthday")
@@ -26,7 +26,7 @@ public class CopInfoPO extends BasePO {
     @JSONField(name = "flag")
     int flag;
 
-    @JSONField(name = "manageArea")
+    @JSONField(name = "manage_area")
     String manageArea;
 
     @JSONField(name = "finish_status")
