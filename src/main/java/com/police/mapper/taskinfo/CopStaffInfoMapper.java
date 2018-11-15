@@ -5,12 +5,12 @@ import com.police.pojo.entity.copstaff.CopInfoPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-
+@Mapper
 public interface CopStaffInfoMapper {
     Integer createCopStaffInfo(CopInfoPO copInfoPO);
     List<CopInfoPO> listCopStaffInfo(CopInfoDTO copInfoDTO);
     CopInfoPO getCopStaffInfo(CopInfoPO copInfoPO);
-    Integer deleteCopStaffInfo(@Param("copId") String copId);
+    Integer deleteCopStaffInfo(@Param("cop_id") String copId);
     Integer batchUpdateFinishStatus(@Param("copIds") List<String> copIds,@Param("finishStatus") String finishStatus);
     Integer updateCopStaffInfo(CopInfoPO copInfoPO);
     Integer countCopStaffInfo(CopInfoDTO copInfoDTO);

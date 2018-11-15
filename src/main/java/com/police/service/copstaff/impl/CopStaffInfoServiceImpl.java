@@ -14,7 +14,7 @@ public class CopStaffInfoServiceImpl implements CopStaffInfoService {
     private CopStaffInfoMapper copStaffInfoMapper;
     @Override
     public Integer createCopStaffInfo(CopInfoPO copInfoPO) {
-
+        copInfoPO.setFinishStatus(TaskFinishStatusEnum.TODO.name());
         return copStaffInfoMapper.createCopStaffInfo(copInfoPO);
     }
     @Override

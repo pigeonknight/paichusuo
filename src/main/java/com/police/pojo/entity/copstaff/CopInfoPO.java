@@ -29,6 +29,9 @@ public class CopInfoPO extends BasePO {
     @JSONField(name = "manageArea")
     String manageArea;
 
+    @JSONField(name = "finish_status")
+    String finishStatus;
+
     public long getCopId() {
         return copId;
     }
@@ -83,6 +86,14 @@ public class CopInfoPO extends BasePO {
 
     public void setManageArea(String manageArea) {
         this.manageArea = manageArea;
+    }
+
+    public String getFinishStatus() {
+        return finishStatus;
+    }
+
+    public void setFinishStatus(String finishStatus) {
+        this.finishStatus = finishStatus;
     }
 
     @Override
