@@ -152,7 +152,7 @@
 
     <update id="batchUpdateFinishStatus">
         UPDATE
-        taskinfo
+        copinfo
         SET
         finish_status = #{finishStatus},
         updated_at = now()
